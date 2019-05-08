@@ -3,12 +3,14 @@
 </h1>
 
 <p>
-  On load of page.
+  <div id="test-web-share">
+    Click Me
+  </div>
 </p>
 
 <script>
 
-window.addEventListener('DOMContentLoaded', () => {
+document.querySelector('#test-web-share').addEventListener('click', () => {
   if (navigator.share) {
     navigator.share({
       title: 'My awesome post!',
