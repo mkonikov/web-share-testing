@@ -47,16 +47,27 @@
       
       function webShare() {
         if (navigator.share) {
-          navigator.share({
-            title: 'My awesome post!',
-            text: 'This post may or may not contain the answer to the universe',
-            url: window.location.href
-          }).then(() => {
-            window.alert('Thanks for sharing!');
+          let myRequest = new Request('https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png');
+
+          fetch(myRequest)
+          .then(function(response) {
+            if (!response.ok) {
+              throw new Error('HTTP error, status = ' + response.status);
+            }
+            return response.blob();
           })
-          .catch(err => {
-            window.alert(`Couldn't share because of`, err);
-          });
+          .then(function(response) {
+            navigator.share({
+              title: 'My awesome post!',
+              text: 'This post may or may not contain the answer to the universe',
+              url: window.location.href
+            }).then(() => {
+              window.alert('Thanks for sharing!');
+            })
+            .catch(err => {
+              window.alert(`Couldn't share because of`, err);
+            });
+          })
         } else {
           window.alert('web share not supported');
         }
