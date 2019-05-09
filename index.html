@@ -11,62 +11,74 @@
         Test WebShare
       </h1>
       
-      <p>
+      <input type="checkbox" name="fetch" id="fetch">Fetch?
+
         <button id="test-web-share">
           Click Me
         </button>
-      </p>
       
-      <p>
+      
+      
         <button id="test-web-share-250">
           Click Me - 250 ms delay
         </button>
-      </p>
       
-      <p>
+      
+      
         <button id="test-web-share-550">
           Click Me - 500 ms delay
         </button>
-      </p>
       
-      <p>
+      
+      
         <button id="test-web-share-999">
           Click Me - 999 ms delay
         </button>
-      </p>
       
       
-      <p>
+      
+      
         <button id="test-web-share-1005">
           Click Me - 1005 ms delay
         </button>
-      </p>
+      
       
       <script>
-      
+        document.querySelector('#fetch').addEventListener('change', function {
+          window.fetch = this.checked;
+        });
+        
+      function directShare() {
+        navigator.share({
+          title: 'My awesome post!',
+          text: 'This post may or may not contain the answer to the universe',
+          url: window.location.href
+        }).then(() => {
+          window.alert('Thanks for sharing!');
+        })
+        .catch(err => {
+          window.alert(`Couldn't share because of`, err);
+        });
+      }
       function webShare() {
         if (navigator.share) {
-          let myRequest = new Request('https://mkonikov.com/images/instants.jpg');
+          if (window.fetch) {
+            let myRequest = new Request('https://mkonikov.com/images/instants.jpg');
 
-          fetch(myRequest)
-          .then(function(response) {
-            if (!response.ok) {
-              throw new Error('HTTP error, status = ' + response.status);
-            }
-            return response.blob();
-          })
-          .then(function(response) {
-            navigator.share({
-              title: 'My awesome post!',
-              text: 'This post may or may not contain the answer to the universe',
-              url: window.location.href
-            }).then(() => {
-              window.alert('Thanks for sharing!');
+            fetch(myRequest)
+            .then(function(response) {
+              if (!response.ok) {
+                throw new Error('HTTP error, status = ' + response.status);
+              }
+              return response.blob();
             })
-            .catch(err => {
-              window.alert(`Couldn't share because of`, err);
-            });
-          })
+            .then(function(response) {
+              directShare();
+            })
+          }
+          else {
+            directShare();
+          }
         } else {
           window.alert('web share not supported');
         }
