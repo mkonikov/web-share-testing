@@ -1,53 +1,46 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>WebShare Testing</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Web Share Testing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
     <h1>
-        Test WebShare
-      </h1>
-      
-      <input type="checkbox" name="fetch" id="fetch">Fetch?
+      Test Web Share
+    </h1>
 
-        <button id="test-web-share">
-          Click Me
-        </button>
-      
-      
-      
-        <button id="test-web-share-250">
-          Click Me - 250 ms delay
-        </button>
-      
-      
-      
-        <button id="test-web-share-550">
-          Click Me - 500 ms delay
-        </button>
-      
-      
-      
-        <button id="test-web-share-999">
-          Click Me - 999 ms delay
-        </button>
-      
-      
-      
-      
-        <button id="test-web-share-1005">
-          Click Me - 1005 ms delay
-        </button>
-      
-      
-      <script>
+    <h3>Fetch Image before Share</h3>
+    <input type="checkbox" name="fetch" id="fetch" /> Enabled
+
+    <h3>Share</h3>
+    <button id="test-web-share">
+      Share
+    </button>
+
+    <h3>Share with Delay</h3>
+    <button id="test-web-share-250">
+      Share - 250 ms
+    </button>
+
+    <button id="test-web-share-550">
+      Share - 500 ms
+    </button>
+
+    <button id="test-web-share-999">
+      Share - 999 ms
+    </button>
+
+    <button id="test-web-share-1005">
+      Share - 1005 ms
+    </button>
+
+    <script>
         document.querySelector('#fetch').addEventListener('change', function {
-          window.fetch = this.checked;
+          window.fetchEnabled = this.checked;
         });
-        
+
       function directShare() {
         navigator.share({
           title: 'My awesome post!',
@@ -62,7 +55,7 @@
       }
       function webShare() {
         if (navigator.share) {
-          if (window.fetch) {
+          if (window.fetchEnabled) {
             let myRequest = new Request('https://mkonikov.com/images/instants.jpg');
 
             fetch(myRequest)
@@ -87,26 +80,26 @@
       function delayedWebShare(delay) {
         window.setTimeout(webShare, delay);
       }
-      
+
       document.querySelector('#test-web-share').addEventListener('click', () => {
         webShare()
       });
-      
+
       document.querySelector('#test-web-share-250').addEventListener('click', () => {
         delayedWebShare(250)
       });
-      
+
       document.querySelector('#test-web-share-550').addEventListener('click', () => {
         delayedWebShare(550)
       });
-      
+
       document.querySelector('#test-web-share-999').addEventListener('click', () => {
         delayedWebShare(999)
       });
-      
+
       document.querySelector('#test-web-share-1005').addEventListener('click', () => {
         delayedWebShare(1005)
       });
-      </script>
-</body>
+    </script>
+  </body>
 </html>
