@@ -5,7 +5,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>WebShare Testing</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="main.js"></script>
 </head>
 <body>
     <h1>
@@ -47,7 +46,7 @@
       
       function webShare() {
         if (navigator.share) {
-          let myRequest = new Request('https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png');
+          let myRequest = new Request('https://www.google.com');
 
           fetch(myRequest)
           .then(function(response) {
