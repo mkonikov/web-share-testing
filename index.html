@@ -1,29 +1,90 @@
-<h1>
-  Test WebShare
-</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>WebShare Testing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="main.js"></script>
+</head>
+<body>
+    <h1>
+        Test WebShare
+      </h1>
+      
+      <p>
+        <div id="test-web-share">
+          Click Me
+        </div>
+      </p>
+      
+      <p>
+        <div id="test-web-share-250">
+          Click Me - 250 ms delay
+        </div>
+      </p>
+      
+      <p>
+        <div id="test-web-share-550">
+          Click Me - 500 ms delay
+        </div>
+      </p>
+      
+      <p>
+        <div id="test-web-share-999">
+          Click Me - 999 ms delay
+        </div>
+      </p>
+      
+      
+      <p>
+        <div id="test-web-share-1005">
+          Click Me - 1005 ms delay
+        </div>
+      </p>
+      
+      <script>
+      
+      function webShare() {
+        if (navigator.share) {
+          navigator.share({
+            title: 'My awesome post!',
+            text: 'This post may or may not contain the answer to the universe',
+            url: window.location.href
+          }).then(() => {
+            window.alert('Thanks for sharing!');
+          })
+          .catch(err => {
+            window.alert(`Couldn't share because of`, err.message);
+          });
+        } else {
+          window.alert('web share not supported');
+        }
+      }
 
-<p>
-  <div id="test-web-share">
-    Click Me
-  </div>
-</p>
-
-<script>
-
-document.querySelector('#test-web-share').addEventListener('click', () => {
-  if (navigator.share) {
-    navigator.share({
-      title: 'My awesome post!',
-      text: 'This post may or may not contain the answer to the universe',
-      url: window.location.href
-    }).then(() => {
-      console.log('Thanks for sharing!');
-    })
-    .catch(err => {
-      console.log(`Couldn't share because of`, err.message);
-    });
-  } else {
-    console.log('web share not supported');
-  }
-});
-</script>
+      function delayedWebShare(delay) {
+        window.setTimeout(webShare, delay);
+      }
+      
+      document.querySelector('#test-web-share').addEventListener('click', () => {
+        webShare()
+      });
+      
+      document.querySelector('#test-web-share-250').addEventListener('click', () => {
+        delayedWebShare(250)
+      });
+      
+      document.querySelector('#test-web-share-550').addEventListener('click', () => {
+        delayedWebShare(550)
+      });
+      
+      document.querySelector('#test-web-share-999').addEventListener('click', () => {
+        delayedWebShare(999)
+      });
+      
+      document.querySelector('#test-web-share-1005').addEventListener('click', () => {
+        delayedWebShare(1005)
+      });
+      </script>
+</body>
+</html>
